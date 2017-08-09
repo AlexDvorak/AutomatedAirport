@@ -1,7 +1,10 @@
 package enums;
 
 public class C {
+	public static final long timeBetweenFlights = 1000000;
+	
 	public static final int earthRadiusKM = 6371;
+	
 	
 	public static double[] coordsPlusDistance(double lat, double lon, double dirDEG, double distFT) {
 		double latRAD = Math.toRadians(lat);

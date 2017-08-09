@@ -23,8 +23,8 @@ public class Gate {
 	}
 	
 	public void planeOn(Plane plane) {
-		if(!occupied()) {
-			synchronized(this) {
+		synchronized(this) {
+			if(!occupied()) {
 				occupant = plane;
 			}
 		}
