@@ -1,11 +1,12 @@
 package main;
 
-public class Gate {
+public class Gate implements PlaneSurface {
 	public Airport airport;
 	public String name;
 	public double lat, lon;
 	public int dir;
 	public Plane occupant;
+	public Taxiway[] connectedTaxiways;
 	
 	public Gate(Airport airport, String name, double lat, double lon, int dir) {
 		this.airport = airport;
@@ -15,21 +16,17 @@ public class Gate {
 		this.dir = dir;
 	}
 	
-	public boolean occupied() {
-		if(occupant == null) {
-			return false;
-		}
-		return true;
-	}
-	
-	public void planeOn(Plane plane) {
+	public int planeOn(Plane plane) {
 		synchronized(this) {
-			if(!occupied()) {
+			if(occupant == null) {
+				return -1;
+			} else {
 				occupant = plane;
+				return 0;
 			}
 		}
 	}
-	public void planeOff() {
+	public void planeOff(int key) {
 		occupant = null;
 	}
 }

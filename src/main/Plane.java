@@ -1,6 +1,7 @@
 package main;
 
 import enums.PlaneStatus;
+import enums.RadioMessage;
 
 public class Plane {
 	public double lat, lon;
@@ -9,27 +10,44 @@ public class Plane {
 	public int fuel;
 	
 	public ComChannel com1, com2;
-	public NavChannel nav1, nav2;
 	
 	public Flight flight;
 	public PlaneStatus status;
-	public Taxiway taxiway;
-	public Gate gate;
-	public Runway runway;
 	public Airport airport;
+	public PlaneSurface location;
 	
 	public int maxSpeed;
 	public int maxFuel;
 	public double nmpg;
 	public int readyTime;
 	
+	private int planeSurfaceKey;
+	
 	public Plane(Gate gate) {
 		this.airport = gate.airport;
-		this.gate = gate;
+		this.location = gate;
 		this.status = PlaneStatus.GATE;
 		this.lat = gate.lat;
 		this.lon = gate.lon;
 		this.airspeed = 0;
 		this.heading = gate.dir;
+	}
+	
+	public RadioMessage receiveMessage(ComChannel channel, RadioMessage msg, double[] args) {
+		switch(msg) {
+			default:
+				return RadioMessage.REPEAT;
+		}
+	}
+	public RadioMessage sendMessage(ComChannel channel, RadioMessage msg, double[] args) {
+		return channel.receiveMessage(this, msg, args);
+	}
+
+	private void getOn(PlaneSurface place) {
+		this.location = place;
+		planeSurfaceKey = place.planeOn(this);
+	}
+	private void getOff(PlaneSurface place) {
+		this.location.planeOff(planeSurfaceKey);
 	}
 }

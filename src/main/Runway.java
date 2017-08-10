@@ -4,7 +4,7 @@ import enums.C;
 import enums.RunwaySide;
 import enums.RunwayUsage;
 
-public class Runway {
+public class Runway implements PlaneSurface {
 	public int width, length;
 	public double dir;
 	public double lat, lon;
@@ -14,6 +14,8 @@ public class Runway {
 	public RunwaySide side;
 	public int nameDir;
 	public Airport airport;
+	public Taxiway[] connectedTaxiways;
+	public Plane occupant;
 	
 	public Runway(Airport airport, int nameDir, RunwaySide side, double lat, double lon, int width, int length, double dir, RunwayUsage usage, RunwayUsage usage2) {
 		this.airport = airport;
@@ -48,5 +50,19 @@ public class Runway {
 		}
 		String dirString = String.valueOf(newDir);
 		return dirString + side.toString();
+	}
+	
+	public int planeOn(Plane plane) {
+		synchronized(this) {
+			if(occupant == null) {
+				return -1;
+			} else {
+				occupant = plane;
+				return 0;
+			}
+		}
+	}
+	public void planeOff(int key) {
+		occupant = null;
 	}
 }

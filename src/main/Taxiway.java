@@ -2,7 +2,7 @@ package main;
 
 import enums.C;
 
-public class Taxiway {
+public class Taxiway implements PlaneSurface {
 	public double lat, lon;
 	public double endLat, endLon;
 	public int width, length;
@@ -10,6 +10,7 @@ public class Taxiway {
 	public String name;
 	public Airport airport;
 	public Taxiway[] otherWays;
+	public Runway[] runways;
 	public Gate[] gates;
 	public Plane[] planes;
 	
