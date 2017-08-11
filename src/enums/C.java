@@ -4,7 +4,7 @@ public class C {
 	public static final long timeBetweenFlights = 1000000;
 	
 	public static final int earthRadiusKM = 6371;
-	
+
 	
 	public static double[] coordsPlusDistance(double lat, double lon, double dirDEG, double distFT) {
 		double latRAD = Math.toRadians(lat);
@@ -34,5 +34,16 @@ public class C {
 	}
 	public static double FTtoKM(double FT) {
 		return FT / 3280.8399;
+	}
+
+	public static void runAsync(Runnable runnable) {
+		(new Thread(runnable)).run();
+	}
+	public static void delay(long millis) {
+		try {
+			Thread.sleep(millis);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 }
