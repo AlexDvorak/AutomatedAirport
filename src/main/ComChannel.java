@@ -1,5 +1,6 @@
 package main;
 
+import enums.C;
 import enums.RadioMessage;
 
 public class ComChannel {
@@ -17,11 +18,7 @@ public class ComChannel {
 	
 	public RadioMessage sendMessage(Plane plane, RadioMessage msg, double[] args) {
 		while(inUse) {
-			try {
-				Thread.sleep(100);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
+			C.delay(100);
 		}
 		synchronized(this) {
 			inUse = true;

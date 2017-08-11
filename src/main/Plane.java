@@ -1,5 +1,6 @@
 package main;
 
+import enums.C;
 import enums.PlaneStatus;
 import enums.RadioMessage;
 
@@ -18,6 +19,8 @@ public class Plane {
 	private float flaps;
 	
 	public ComChannel com1, com2;
+	
+	public String tailSign;
 	
 	public Flight flight;
 	public Flight[] nextFlights;
@@ -38,7 +41,7 @@ public class Plane {
 	
 	private int planeSurfaceKey;
 	
-	public Plane(Gate gate) {
+	public Plane(String tailSign, Gate gate) {
 		this.airport = gate.airport;
 		this.location = gate;
 		this.status = PlaneStatus.GATE;
@@ -46,6 +49,7 @@ public class Plane {
 		this.lon = gate.lon;
 		this.airspeed = 0;
 		this.heading = gate.dir;
+		this.tailSign = tailSign;
 	}
 	
 	public RadioMessage receiveMessage(ComChannel channel, RadioMessage msg, double[] args) {
@@ -76,8 +80,19 @@ public class Plane {
 	public void start() {
 		while(true) {
 			while(nextFlights[0] == null) {
-				Thread.sleep(1000);
+				C.delay(1000);
 			}
+			Flight thisFlight = nextFlights[0];
+			
+			// register flight with ATC
+			// get taxi service
+			// taxi to runway
+			// takeoff
+			// cruise
+			// landing
+			// taxi to gate
+			
+			nextFlights[0] = null;
 		}
 	}
 }
